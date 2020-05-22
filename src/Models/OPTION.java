@@ -19,7 +19,6 @@ public class OPTION  extends Component {
 	public OPTION(){
 		this.description = "";
 	}
-	
 
 	public String getValue() {
 		return value;

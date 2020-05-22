@@ -26,15 +26,7 @@ public abstract class ComponentComposite extends ComponentBase {
 	public String indexing(String sentenca) {
 		return "\n" + sentenca + "\n";
 	}
-
-	public String getProperties() {
-		return "";
-	}
-
-	public String getComponents() {
-		return "";
-	}
-
+	
 	public String getChildren() {
 		return null;
 	}

@@ -27,10 +27,15 @@ import Views.Dialogue;
  */
 
 public class DialogueController {
+	
+	private Dialogue dialogue;
+	
+	public DialogueController(){
+		this.dialogue = new Dialogue();
+	}
+	
+	public void start(){
 
-	public static void start(){
-
-		
 		HTMLArchive html = (HTMLArchive)ComponentFactory.getComponent(ComponentEnum.HTMLArchive, null, null);
 		html.setArchiveName("edit");
 		
@@ -106,12 +111,16 @@ public class DialogueController {
 		html.add(body);
 		html.add(footer);
 		
-		Dialogue.prints(html.getHTML());
+		this.dialogue.print(html.getHTML());
 		
 		try{
 			ExportHTML.SetHtmlArchive(html);
 		}catch(Exception e){
-			Dialogue.prints(e.getMessage().toString());
+			this.dialogue.print(e.getMessage().toString());
 		}
+
 	}
+	
+	
+	
 }

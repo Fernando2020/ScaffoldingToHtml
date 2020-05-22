@@ -46,14 +46,14 @@ public class P  extends Component {
 	
 	@Override
 	public String getHTML() {
-		String html = "<h1";
+		String html = "<p";
 		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
 		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
 		html += ">";
 		
 		html += this.description + this.getChildren();
 	
-		html += "</h1>";
+		html += "</p>";
 		
 		return indexing(html);
 	}

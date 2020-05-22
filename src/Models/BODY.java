@@ -19,7 +19,7 @@ public class BODY extends Component {
 	public BODY() {
 		this.components = new ArrayList<Component>();
 	}
-
+	
 	@Override
 	public void add(Component comp) {
 		this.components.add(comp);

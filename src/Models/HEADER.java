@@ -1,7 +1,6 @@
 package Models;
 
 import java.util.ArrayList;
-
 import Composite.Component;
 
 /**
@@ -22,7 +21,7 @@ public class HEADER extends Component{
 		this.components = new ArrayList<Component>();
 		this.description = "";
 	}
-
+	
 	public String getDescription() {
 		return description;
 	}

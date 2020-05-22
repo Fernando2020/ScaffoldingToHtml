@@ -17,6 +17,7 @@ import Models.HEADER;
 import Models.HTMLArchive;
 import Models.IMG;
 import Models.INPUT;
+import Models.LABEL;
 import Models.OPTION;
 import Models.P;
 import Models.SELECT;
@@ -205,6 +206,18 @@ public class ComponentFactory {
 				return flyheight.get(e.toString() + id + classe);
 			} else {
 				element = new INPUT();
+				element.setClasse(classe);
+				element.setId(id);
+				flyheight.put(e.toString() + id + classe, element);
+				return element;
+			}
+		}
+		if (e.equals(ComponentEnum.LABEL)) {
+			LABEL element = null;
+			if (flyheight.containsKey(e.toString() + id + classe)) {
+				return flyheight.get(e.toString() + id + classe);
+			} else {
+				element = new LABEL();
 				element.setClasse(classe);
 				element.setId(id);
 				flyheight.put(e.toString() + id + classe, element);

@@ -2,6 +2,7 @@ package Models;
 
 import Composite.Component;
 
+
 /**
  * 
  * Componente de Texto do padrão HTML
@@ -21,6 +22,7 @@ public class TEXTAREA  extends Component {
 		this.cols = -1;
 		this.rows = -1;
 	}
+	
 
 	public String getName() {
 		return name;

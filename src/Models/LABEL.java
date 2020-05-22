@@ -3,23 +3,19 @@ package Models;
 import java.util.ArrayList;
 import Composite.Component;
 
-/**
- * 
- * Componente do Menu lateral do padrão HTML
- * 
- * @version 1.0.0
- * @author Fernando Geraldo Nogueira
- *
- */
-
-public class SIDEBAR extends Component{
+public class LABEL extends Component{
 	
 	private ArrayList<Component> components;
 	private String description;
-	
-	public SIDEBAR(){
+
+	public LABEL(){
 		this.components = new ArrayList<Component>();
 		this.description = "";
+	}
+	
+	@Override
+	public void add(Component comp) {
+		this.components.add(comp);
 	}
 	
 	public String getDescription() {
@@ -29,12 +25,7 @@ public class SIDEBAR extends Component{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-
-	@Override
-	public void add(Component comp) {
-		this.components.add(comp);
-	}
-		
+	
 	@Override
 	public String getChildren(){
 		String children = "";
@@ -45,15 +36,15 @@ public class SIDEBAR extends Component{
 	}
 	
 	@Override
-	public String getHTML() {		
-		String html = "<div class='sidenav'";
+	public String getHTML() {
+		String html = "<label";
 		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
+		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
 		html += ">";
-				
-		html += "<a href='#'>MENU</a>";
+		
 		html += this.description + this.getChildren();
-
-		html += "</div>";
+	
+		html += "</label>";
 		
 		return indexing(html);
 	}
