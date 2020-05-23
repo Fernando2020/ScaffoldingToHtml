@@ -13,26 +13,52 @@ import java.util.Scanner;
 
 public class Dialogue {
 
-	private Scanner scan;
-	
-	public Dialogue(){
-		this.scan = new Scanner(System.in);
-	}
-	
-	public void print(String sentenca) {
+	private static Scanner scan = new Scanner(System.in); ;
+		
+	public static void print(String sentenca) {
 		System.out.println(sentenca);
 	}
 	
-	public String printResponse(String sentenca) {
-		System.out.println(sentenca);
-		return this.scan.next().toString();
+	public static String getString() {
+		return scan.next().toString();
 	}
 	
-	public String printResponseComponentOrExit(String sentenca){
-		String html = "Deseja inserir um componente:\n";
-		html += sentenca;
-		print(html);
-		return scan.next();
+	public static int getInt() {
+		try{
+			return scan.nextInt();
+		}catch(Exception e){return 0;}
 	}
 	
+	public static boolean getBoolean() {
+		try{
+			return scan.nextBoolean();
+		}catch(Exception e){return false;}
+	}
+	
+	public static String printResponseString(String sentenca) {
+		System.out.print(sentenca);
+		return scan.next().toString();
+	}
+	
+	public static int printResponseInt(String sentenca) {
+		try{
+			System.out.print(sentenca);
+			return scan.nextInt();
+		}catch(Exception e){return 0;}
+	}
+	
+	public static int printResponseIntDefault(String sentenca) {
+		try{
+			System.out.print(sentenca);
+			return scan.nextInt();
+		}catch(Exception e){return -1;}
+	}
+	
+	public static boolean printResponseBoolean(String sentenca) {
+		try{
+			System.out.print(sentenca);
+			return scan.nextBoolean();
+		}catch(Exception e){return false;}
+	}
+		
 }

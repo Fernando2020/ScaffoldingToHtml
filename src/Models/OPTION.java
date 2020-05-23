@@ -1,6 +1,7 @@
 package Models;
 
 import Composite.Component;
+import Views.Dialogue;
 
 /**
  * 
@@ -18,6 +19,7 @@ public class OPTION  extends Component {
 	
 	public OPTION(){
 		this.description = "";
+		this.getPermissionComponent();
 	}
 
 	public String getValue() {
@@ -45,6 +47,13 @@ public class OPTION  extends Component {
 		html += "/>";
 		
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		this.value = Dialogue.printResponseString("Insira VALUE para o elemento ou continue:");
+		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
+		return;
 	}
 	
 }

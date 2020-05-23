@@ -1,6 +1,7 @@
 package Models;
 
 import Composite.Component;
+import Views.Dialogue;
 
 /**
  * 
@@ -19,6 +20,7 @@ public class IMG extends Component {
 	private String height;
 
 	public IMG(){
+		this.getPermissionComponent();
 	}
 	
 	public String getSrc() {
@@ -65,6 +67,15 @@ public class IMG extends Component {
 		html += "/>";
 
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		this.src = Dialogue.printResponseString("Insira SRC para o elemento ou continue:");
+		this.alt = Dialogue.printResponseString("Insira ALT para o elemento ou continue:");
+		this.height = Dialogue.printResponseString("Insira HEIGHT para o elemento ou continue:");
+		this.width = Dialogue.printResponseString("Insira WHIDTH para o elemento ou continue:");
+		return;
 	}
 	
 }

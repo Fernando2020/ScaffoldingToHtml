@@ -30,5 +30,9 @@ public abstract class ComponentComposite extends ComponentBase {
 	public String getChildren() {
 		return null;
 	}
+	
+	public void getPermissionComponent(){
+		return;
+	}
 
 }

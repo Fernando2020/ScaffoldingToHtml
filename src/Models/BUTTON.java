@@ -1,6 +1,7 @@
 package Models;
 
 import Composite.Component;
+import Views.Dialogue;
 
 
 /**
@@ -19,6 +20,7 @@ public class BUTTON  extends Component {
 
 	public BUTTON(){
 		this.description = "";
+		this.getPermissionComponent();
 	}
 	
 	public String getDescription() {
@@ -48,6 +50,13 @@ public class BUTTON  extends Component {
 		html += "</button>";
 
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		this.type = Dialogue.printResponseString("Insira TYPE para o elemento ou continue:");
+		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
+		return;
 	}
 	
 }

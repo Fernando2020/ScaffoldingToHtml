@@ -2,6 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 import Composite.Component;
+import Controllers.GeneralController;
+import Views.Dialogue;
 
 /**
  * 
@@ -18,6 +20,7 @@ public class SELECT  extends Component {
 
 	public SELECT(){
 		this.components = new ArrayList<Component>();
+		this.getPermissionComponent();
 	}
 	
 	@Override
@@ -46,5 +49,27 @@ public class SELECT  extends Component {
 		html += "</select>";
 		
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		String res = "";
+		String id = "";
+		String classe = "";
+		int i = 0;
+		while (true) {
+			res += "\n****************\nSELECT\n****************\n";
+			res += "[0] - VOLTAR/SAIR\n";
+			res += "[16] - OPTION\n";
+
+			Dialogue.print(res);
+			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no SELECT:");
+			if (i == 0){
+				return;
+			}
+			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
+			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");
+			GeneralController.getGeneralElements(this, GeneralController.getEnum(i), id, classe);
+		}
 	}
 }

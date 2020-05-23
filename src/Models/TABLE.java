@@ -2,6 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 import Composite.Component;
+import Controllers.GeneralController;
+import Views.Dialogue;
 
 /**
  * 
@@ -19,6 +21,7 @@ public class TABLE  extends Component {
 
 	public TABLE(){
 		this.components = new ArrayList<Component>();
+		this.getPermissionComponent();
 	}
 	
 	@Override
@@ -56,6 +59,29 @@ public class TABLE  extends Component {
 		html += "</table>";
 		
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		String res = "";
+		String id = "";
+		String classe = "";
+		this.border = Dialogue.printResponseString("Insira BORDER para o elemento ou continue:");
+		int i = 0;
+		while (true) {
+			res += "\n****************\nTABLE\n****************\n";
+			res += "[0] - VOLTAR/SAIR\n";
+			res += "[24] - TR\n";
+
+			Dialogue.print(res);
+			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no TABLE:");
+			if (i == 0){
+				return;
+			}
+			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
+			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");
+			GeneralController.getGeneralElements(this, GeneralController.getEnum(i), id, classe);
+		}
 	}
 	
 }

@@ -2,6 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 import Composite.Component;
+import Controllers.GeneralController;
+import Views.Dialogue;
 
 /**
  * 
@@ -20,6 +22,7 @@ public class P  extends Component {
 	public P(){
 		this.components = new ArrayList<Component>();
 		this.description = "";
+		this.getPermissionComponent();
 	}
 	
 	@Override
@@ -56,6 +59,31 @@ public class P  extends Component {
 		html += "</p>";
 		
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		String res = "";
+		String id = "";
+		String classe = "";
+		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
+		int i = 0;
+		while (true) {
+			res += "\n****************\nP\n****************\n";
+			res += "[0] - VOLTAR/SAIR\n";
+			res += "[1] - A\n";
+			res += "[13] - IMG\n";
+			res += "[15] - LABEL\n";
+
+			Dialogue.print(res);
+			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no P:");
+			if (i == 0){
+				return;
+			}
+			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
+			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");
+			GeneralController.getGeneralElements(this, GeneralController.getEnum(i), id, classe);
+		}
 	}
 	
 }

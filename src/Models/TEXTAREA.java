@@ -1,6 +1,7 @@
 package Models;
 
 import Composite.Component;
+import Views.Dialogue;
 
 
 /**
@@ -21,6 +22,7 @@ public class TEXTAREA  extends Component {
 	public TEXTAREA(){
 		this.cols = -1;
 		this.rows = -1;
+		this.getPermissionComponent();
 	}
 	
 
@@ -58,6 +60,14 @@ public class TEXTAREA  extends Component {
 		html += "/>";
 
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		this.name = Dialogue.printResponseString("Insira NAME para o elemento ou continue:");
+		this.cols = Dialogue.printResponseIntDefault("Insira o número de COLUNAS para o elemento ou continue:");
+		this.rows = Dialogue.printResponseIntDefault("Insira o número de LINHAS para o elemento ou continue:");
+		return;
 	}
 	
 }

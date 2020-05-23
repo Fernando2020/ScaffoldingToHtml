@@ -2,6 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 import Composite.Component;
+import Controllers.GeneralController;
+import Views.Dialogue;
 
 /**
  * 
@@ -22,6 +24,7 @@ public class A extends Component{
 	public A(){
 		this.components = new ArrayList<Component>();
 		this.description = "";
+		this.getPermissionComponent();
 	}
 	
 	@Override
@@ -76,6 +79,37 @@ public class A extends Component{
 		html += "</a>";
 
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		String res = "";
+		String id = "";
+		String classe = "";
+		this.href = Dialogue.printResponseString("Insira HREF para o elemento ou continue:");
+		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
+		this.target = Dialogue.printResponseBoolean("Insira TARGET para o elemento ou continue (true/false):");
+		int i = 0;
+		while (true) {
+			res += "\n****************\nA\n****************\n";
+			res += "[0] - VOLTAR/SAIR\n";
+			res += "[7] - H1\n";
+			res += "[8] - H2\n";
+			res += "[9] - H3\n";
+			res += "[10] - H4\n";
+			res += "[13] - IMG\n";
+			res += "[15] - LABEL\n";
+			res += "[17] - P\n";
+
+			Dialogue.print(res);
+			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no A:");
+			if (i == 0){
+				return;
+			}
+			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
+			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");
+			GeneralController.getGeneralElements(this, GeneralController.getEnum(i), id, classe);
+		}
 	}
 	
 }

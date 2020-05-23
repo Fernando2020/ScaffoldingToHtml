@@ -2,6 +2,8 @@ package Models;
 
 import java.util.ArrayList;
 import Composite.Component;
+import Controllers.GeneralController;
+import Views.Dialogue;
 
 public class LABEL extends Component{
 	
@@ -11,6 +13,7 @@ public class LABEL extends Component{
 	public LABEL(){
 		this.components = new ArrayList<Component>();
 		this.description = "";
+		this.getPermissionComponent();
 	}
 	
 	@Override
@@ -47,5 +50,30 @@ public class LABEL extends Component{
 		html += "</label>";
 		
 		return indexing(html);
+	}
+	
+	@Override
+	public void getPermissionComponent() {
+		String res = "";
+		String id = "";
+		String classe = "";
+		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
+		int i = 0;
+		while (true) {
+			res += "\n****************\nLABEL\n****************\n";
+			res += "[0] - VOLTAR/SAIR\n";
+			res += "[1] - A\n";
+			res += "[13] - IMG\n";
+			res += "[17] - P\n";
+
+			Dialogue.print(res);
+			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no LABEL:");
+			if (i == 0){
+				return;
+			}
+			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
+			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");
+			GeneralController.getGeneralElements(this, GeneralController.getEnum(i), id, classe);
+		}
 	}
 }

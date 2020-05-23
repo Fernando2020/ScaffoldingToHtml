@@ -1,6 +1,7 @@
 package Models;
 
 import Composite.Component;
+import Views.Dialogue;
 
 /**
  * 
@@ -11,7 +12,7 @@ import Composite.Component;
  *
  */
 
-public class INPUT  extends Component {
+public class INPUT extends Component {
 
 	private String type;
 	private String value;
@@ -22,9 +23,10 @@ public class INPUT  extends Component {
 	private int min;
 	private boolean checked;
 
-	public INPUT(){
+	public INPUT() {
 		this.max = -1;
 		this.min = -1;
+		this.getPermissionComponent();
 	}
 
 	public String getType() {
@@ -90,12 +92,12 @@ public class INPUT  extends Component {
 	public void setChecked(boolean checked) {
 		this.checked = checked;
 	}
-	
+
 	@Override
 	public String getHTML() {
 		String html = "<input";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
+		html += this.getId() != null && this.getId() != "" ? " id='" + this.getId() + "'" : "";
+		html += this.getClasse() != null && this.getClasse() != "" ? " class='" + this.getClasse() + "'" : "";
 		html += this.type != null && type != "" ? " type='" + this.type + "'" : "";
 		html += this.value != null && value != "" ? " value='" + this.value + "'" : "";
 		html += this.name != null && name != "" ? " name='" + this.name + "'" : "";
@@ -108,5 +110,21 @@ public class INPUT  extends Component {
 
 		return indexing(html);
 	}
-	
+
+	@Override
+	public void getPermissionComponent() {
+		this.type = Dialogue.printResponseString("Insira TYPE para o elemento ou continue:");
+		this.value = Dialogue.printResponseString("Insira VALUE para o elemento ou continue:");
+		this.name = Dialogue.printResponseString("Insira NAME para o elemento ou continue:");
+		this.required = Dialogue.printResponseBoolean("Insira REQUIRED para o elemento ou continue (true/false):");
+		this.readonly = Dialogue.printResponseBoolean("Insira READONLY para o elemento ou continue (true/false):");
+		if (this.type == "number") {
+			this.max = Dialogue.printResponseIntDefault("Insira MAX para o elemento ou continue:");
+			this.min = Dialogue.printResponseIntDefault("Insira MIN para o elemento ou continue:");
+		} else if (this.type == "checkbox") {
+			this.checked = Dialogue.printResponseBoolean("Insira CHECKED para o elemento ou continue (true/false):");
+		}
+		return;
+	}
+
 }
