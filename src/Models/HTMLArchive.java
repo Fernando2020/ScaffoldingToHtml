@@ -16,12 +16,14 @@ import Views.Dialogue;
 
 public class HTMLArchive extends Component {
 
+	private String permission;
 	private ArrayList<Component> components;
 	private String title;
 	private String archiveName;
 	private String path;
 
 	public HTMLArchive() {
+		this.permission = "[0];[2];[5];[11];[19]";
 		this.components = new ArrayList<Component>();
 		this.path = "html/";
 		this.getPermissionComponent();
@@ -68,13 +70,13 @@ public class HTMLArchive extends Component {
 	@Override
 	public String getHTML() {
 		String html = "<html lang='pt-br'";
-		html += this.getId() != null && this.getId() != "" ? " id='" + this.getId() + "'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='" + this.getClasse() + "'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
 		html += ">";
 		html += "<head>";
 		html += "\n<meta charset='utf-8'/>";
 		html += "\n<link href='../css/style.css' rel='stylesheet'/>";
-		html += this.title != null && this.title != "" ? "\n<title>" + this.title + "<\title>" : "";
+		html += !this.title.equals("") ? "\n<title>" + this.title + "</title>" : "";
 		html += "</head>";
 
 		html += this.getChildren();
@@ -86,6 +88,11 @@ public class HTMLArchive extends Component {
 	}
 
 	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
+	}
+
+	@Override
 	public void getPermissionComponent() {
 		String res = "";
 		String id = "";
@@ -94,7 +101,7 @@ public class HTMLArchive extends Component {
 		this.title = Dialogue.printResponseString("Insira TÍTULO para o elemento ou continue:");
 		int i = 0;
 		while (true) {
-			res += "\n****************\nHTML\n****************\n";
+			res = "\n****************\nHTML\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[2] - BODY\n";
 			res += "[5] - FOOTER\n";
@@ -103,8 +110,12 @@ public class HTMLArchive extends Component {
 
 			Dialogue.print(res);
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no HTML:");
-			if (i == 0){
+			if (i == 0) {
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");

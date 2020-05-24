@@ -16,12 +16,10 @@ import Views.Dialogue;
 public class TEXTAREA  extends Component {
 
 	private String name;
-	private int cols;
-	private int rows;
+	private String cols;
+	private String rows;
 
 	public TEXTAREA(){
-		this.cols = -1;
-		this.rows = -1;
 		this.getPermissionComponent();
 	}
 	
@@ -34,29 +32,29 @@ public class TEXTAREA  extends Component {
 		this.name = name;
 	}
 
-	public int getCols() {
+	public String getCols() {
 		return cols;
 	}
 
-	public void setCols(int cols) {
+	public void setCols(String cols) {
 		this.cols = cols;
 	}
 
-	public int getRows() {
+	public String getRows() {
 		return rows;
 	}
 
-	public void setRows(int rows) {
+	public void setRows(String rows) {
 		this.rows = rows;
 	}
 	
 	@Override
 	public String getHTML() {
 		String html = "<input";
-		html += this.getId() != null && this.getId() != "" ? "id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? "class='"+this.getClasse()+"'" : "";
-		html += this.cols > -1 ? " cols='" + this.cols+ "'" : "";
-		html += this.rows > -1 ? " rows='" + this.rows+ "'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.cols.equals("") ? " cols='" + this.cols+ "'" : null;
+		html += !this.rows.equals("") ? " rows='" + this.rows+ "'" : null;
 		html += "/>";
 
 		return indexing(html);
@@ -65,8 +63,8 @@ public class TEXTAREA  extends Component {
 	@Override
 	public void getPermissionComponent() {
 		this.name = Dialogue.printResponseString("Insira NAME para o elemento ou continue:");
-		this.cols = Dialogue.printResponseIntDefault("Insira o número de COLUNAS para o elemento ou continue:");
-		this.rows = Dialogue.printResponseIntDefault("Insira o número de LINHAS para o elemento ou continue:");
+		this.cols = Dialogue.printResponseString("Insira o número de COLUNAS para o elemento ou continue:");
+		this.rows = Dialogue.printResponseString("Insira o número de LINHAS para o elemento ou continue:");
 		return;
 	}
 	

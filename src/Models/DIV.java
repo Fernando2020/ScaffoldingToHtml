@@ -17,9 +17,11 @@ import Views.Dialogue;
 
 public class DIV extends Component {
 
+	private String permission;
 	private ArrayList<Component> components;
 
 	public DIV(){
+		this.permission = "[0];[1];[3];[4];[6];[7];[8];[9];[10];[13];[14];[15];[17];[18];[20];[22]";
 		this.components = new ArrayList<Component>();
 		this.getPermissionComponent();
 	}
@@ -41,8 +43,8 @@ public class DIV extends Component {
 	@Override
 	public String getHTML() {
 		String html = "<div";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
 		html += ">";
 		
 		html += this.getChildren();
@@ -53,13 +55,18 @@ public class DIV extends Component {
 	}
 	
 	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
+	}
+	
+	@Override
 	public void getPermissionComponent() {
 		String res = "";
 		String id = "";
 		String classe = "";
 		int i = 0;
 		while (true) {
-			res += "\n****************\nDIV\n****************\n";
+			res = "\n****************\nDIV\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[1] - A\n";
 			res += "[3] - BUTTON\n";
@@ -81,6 +88,10 @@ public class DIV extends Component {
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no DIV:");
 			if (i == 0){
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");

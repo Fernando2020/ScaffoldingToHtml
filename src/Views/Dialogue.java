@@ -20,7 +20,9 @@ public class Dialogue {
 	}
 	
 	public static String getString() {
-		return scan.next().toString();
+		String r = scan.next().toString();
+		r = r.equals("") ? "" : r;
+		return r;
 	}
 	
 	public static int getInt() {
@@ -37,7 +39,9 @@ public class Dialogue {
 	
 	public static String printResponseString(String sentenca) {
 		System.out.print(sentenca);
-		return scan.next().toString();
+		String r = scan.next().toString();
+		r = r.equals("") ? "" : r;
+		return r;
 	}
 	
 	public static int printResponseInt(String sentenca) {

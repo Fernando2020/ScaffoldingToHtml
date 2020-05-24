@@ -20,7 +20,7 @@ public class DialogueController {
 	private HTMLArchive html;
 			
 	public void start(){
-		html = (HTMLArchive)ComponentFactory.getComponent(ComponentEnum.HTMLArchive, "html1", null);
+		html = (HTMLArchive)ComponentFactory.getComponent(ComponentEnum.HTMLArchive, "html1", "");
 		Dialogue.print(html.getHTML());
 		try{
 			ExportHTML.SetHtmlArchive(html);

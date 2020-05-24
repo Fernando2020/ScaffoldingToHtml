@@ -38,13 +38,14 @@ public class OPTION  extends Component {
 	@Override
 	public String getHTML() {
 		String html = "<option";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
-		html += this.value != null && this.value != "" ? " id='"+this.value+"'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.value.equals("") ? " id='"+this.value+"'" : "";
+		html += "/>";
 		
 		html += this.description;
 		
-		html += "/>";
+		html += "</option>";
 		
 		return indexing(html);
 	}

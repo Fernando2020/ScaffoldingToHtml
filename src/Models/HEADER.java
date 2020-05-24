@@ -16,10 +16,12 @@ import Views.Dialogue;
 
 public class HEADER extends Component{
 
+	private String permission;
 	private ArrayList<Component> components;
 	private String description;
 	
 	public HEADER(){
+		this.permission = "[0];[1];[7];[8];[9];[10];[15];[17]";
 		this.components = new ArrayList<Component>();
 		this.description = "";
 		this.getPermissionComponent();
@@ -50,8 +52,8 @@ public class HEADER extends Component{
 	@Override
 	public String getHTML() {
 		String html = "<header";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
 		html += ">";
 				
 		html += this.description + this.getChildren();
@@ -59,6 +61,11 @@ public class HEADER extends Component{
 		html += "</header>";
 		
 		return indexing(html);
+	}
+
+	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
 	}
 	
 	@Override
@@ -69,7 +76,7 @@ public class HEADER extends Component{
 		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
 		int i = 0;
 		while (true) {
-			res += "\n****************\nHEADER\n****************\n";
+			res = "\n****************\nHEADER\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[1] - A\n";
 			res += "[7] - H1\n";
@@ -83,6 +90,10 @@ public class HEADER extends Component{
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no HEADER:");
 			if (i == 0){
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");

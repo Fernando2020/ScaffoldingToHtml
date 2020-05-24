@@ -16,10 +16,12 @@ import Views.Dialogue;
 
 public class TABLE  extends Component {
 
+	private String permission;
 	private ArrayList<Component> components;
 	private String border;
 
 	public TABLE(){
+		this.permission = "[0];[24]";
 		this.components = new ArrayList<Component>();
 		this.getPermissionComponent();
 	}
@@ -49,9 +51,9 @@ public class TABLE  extends Component {
 	@Override
 	public String getHTML() {
 		String html = "<table";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
-		html += this.border != null && this.border != "" ? " border='"+this.border+"'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.border.equals("") ? " border='"+this.border+"'" : null;
 		html += ">";
 		
 		html += this.getChildren();
@@ -59,6 +61,11 @@ public class TABLE  extends Component {
 		html += "</table>";
 		
 		return indexing(html);
+	}
+
+	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
 	}
 	
 	@Override
@@ -69,7 +76,7 @@ public class TABLE  extends Component {
 		this.border = Dialogue.printResponseString("Insira BORDER para o elemento ou continue:");
 		int i = 0;
 		while (true) {
-			res += "\n****************\nTABLE\n****************\n";
+			res = "\n****************\nTABLE\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[24] - TR\n";
 
@@ -77,6 +84,10 @@ public class TABLE  extends Component {
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no TABLE:");
 			if (i == 0){
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");

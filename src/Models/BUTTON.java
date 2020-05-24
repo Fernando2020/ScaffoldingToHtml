@@ -38,13 +38,13 @@ public class BUTTON  extends Component {
 	public void setType(String type) {
 		this.type = type;
 	}
-
+	
 	@Override
 	public String getHTML() {
 		String html = "<button";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
-		html += this.type != null && this.type != "" ? " type='" + this.type + "'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.type.equals("") ? " type='" + this.type + "'" : "";
 		html += ">";
 		html += this.description;
 		html += "</button>";

@@ -58,12 +58,12 @@ public class IMG extends Component {
 	@Override
 	public String getHTML() {
 		String html = "<img";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
-		html += this.alt != null && this.alt != "" ? " alt='" + this.alt + "'" : "";
-		html += this.width != null && this.width != "" ? " width='" + this.width + "'" : "";
-		html += this.height != null && this.height != "" ? " height='" + this.height + "'" : "";
-		html += this.src != null && this.src != "" ? " src='" + this.src + "'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.alt.equals("") ? " alt='" + this.alt + "'" : "";
+		html += !this.width.equals("") ? " width='" + this.width + "'" : "";
+		html += !this.height.equals("") ? " height='" + this.height + "'" : "";
+		html += !this.src.equals("") ? " src='" + this.src + "'" : "";
 		html += "/>";
 
 		return indexing(html);

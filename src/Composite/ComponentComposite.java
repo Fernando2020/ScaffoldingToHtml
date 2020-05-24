@@ -34,5 +34,9 @@ public abstract class ComponentComposite extends ComponentBase {
 	public void getPermissionComponent(){
 		return;
 	}
+	
+	public boolean numberAllowed(String number){
+		return false;
+	}
 
 }

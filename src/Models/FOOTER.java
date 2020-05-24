@@ -16,10 +16,12 @@ import Views.Dialogue;
 
 public class FOOTER extends Component{
 
+	private String permission;
 	private ArrayList<Component> components;
 	private String description;
 	
 	public FOOTER(){
+		this.permission = "[0];[1];[3];[7];[8];[9];[10];[13];[15];[17]";
 		this.components = new ArrayList<Component>();
 		this.description = "";
 		this.getPermissionComponent();
@@ -50,7 +52,8 @@ public class FOOTER extends Component{
 	@Override
 	public String getHTML() {
 		String html = "<footer class='footer'";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
 		html += ">";
 				
 		html += this.description + this.getChildren();
@@ -61,6 +64,11 @@ public class FOOTER extends Component{
 	}
 	
 	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
+	}
+	
+	@Override
 	public void getPermissionComponent() {
 		String res = "";
 		String id = "";
@@ -68,7 +76,7 @@ public class FOOTER extends Component{
 		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
 		int i = 0;
 		while (true) {
-			res += "\n****************\nFOOTER\n****************\n";
+			res = "\n****************\nFOOTER\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[1] - A\n";
 			res += "[3] - BUTTON\n";
@@ -84,6 +92,10 @@ public class FOOTER extends Component{
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no FOOTER:");
 			if (i == 0){
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");

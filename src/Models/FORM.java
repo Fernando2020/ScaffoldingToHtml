@@ -16,11 +16,13 @@ import Views.Dialogue;
 
 public class FORM extends Component {
 
+	private String permission;
 	private ArrayList<Component> components;
 	private String action;
 	private String method;
 
 	public FORM() {
+		this.permission = "[0];[1];[3];[4];[7];[8];[9];[10];[13];[14];[15];[17];[18];[22]";
 		this.components = new ArrayList<Component>();
 		this.getPermissionComponent();
 	}
@@ -58,10 +60,10 @@ public class FORM extends Component {
 	@Override
 	public String getHTML() {
 		String html = "<form";
-		html += this.getId() != null && this.getId() != "" ? "id='" + this.getId() + "'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? "class='" + this.getClasse() + "'" : "";
-		html += this.action != null && this.action != "" ? " action='" + this.action + "'" : "";
-		html += this.method != null && this.method != "" ? " method='" + this.method + "'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.action.equals("") ? " action='" + this.action + "'" : "";
+		html += !this.method.equals("") ? " method='" + this.method + "'" : "";
 		html += ">";
 
 		html += this.getChildren();
@@ -72,6 +74,11 @@ public class FORM extends Component {
 	}
 
 	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
+	}
+	
+	@Override
 	public void getPermissionComponent() {
 		String res = "";
 		String id = "";
@@ -80,7 +87,7 @@ public class FORM extends Component {
 		this.method = Dialogue.printResponseString("Insira METHOD para o elemento ou continue:");
 		int i = 0;
 		while (true) {
-			res += "\n****************\nFORM\n****************\n";
+			res = "\n****************\nFORM\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[1] - A\n";
 			res += "[3] - BUTTON\n";
@@ -100,6 +107,10 @@ public class FORM extends Component {
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no FORM:");
 			if (i == 0){
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");

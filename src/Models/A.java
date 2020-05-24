@@ -16,12 +16,14 @@ import Views.Dialogue;
 
 public class A extends Component{
 	
+	private String permission;
 	private ArrayList<Component> components;
 	private String description;
 	private String href;
-	private boolean target;
+	private String target;
 	
 	public A(){
+		this.permission = "[0];[7];[8];[9];[10];[13];[15];[17]";
 		this.components = new ArrayList<Component>();
 		this.description = "";
 		this.getPermissionComponent();
@@ -48,11 +50,11 @@ public class A extends Component{
 		this.href = href;
 	}
 
-	public boolean isTarget() {
+	public String getTarget() {
 		return target;
 	}
 
-	public void setTarget(boolean target) {
+	public void setTarget(String target) {
 		this.target = target;
 	}
 	
@@ -68,10 +70,10 @@ public class A extends Component{
 	@Override
 	public String getHTML() {
 		String html = "<a";
-		html += this.getId() != null && this.getId() != "" ? " id='"+this.getId()+"'" : "";
-		html += this.getClasse() != null && this.getClasse() != "" ? " class='"+this.getClasse()+"'" : "";
-		html += this.href != null && this.href != "" ? " href='" + this.href + "'" : ""; 
-		html += this.target ? " target='_blank'" : "";
+		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
+		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.href.equals("") ? " href='" + this.href + "'" : ""; 
+		html += !this.target.equals("") && this.target.equals("s") ? " target='_blank'" : "";
 		html += ">";
 		
 		html += this.description + this.getChildren();
@@ -82,16 +84,21 @@ public class A extends Component{
 	}
 	
 	@Override
+	public boolean numberAllowed(String number) {
+		return this.permission.indexOf(number) > -1;
+	}
+	
+	@Override
 	public void getPermissionComponent() {
 		String res = "";
 		String id = "";
 		String classe = "";
 		this.href = Dialogue.printResponseString("Insira HREF para o elemento ou continue:");
 		this.description = Dialogue.printResponseString("Insira DESCRICAO para o elemento ou continue:");
-		this.target = Dialogue.printResponseBoolean("Insira TARGET para o elemento ou continue (true/false):");
+		this.target = Dialogue.printResponseString("Insira TARGET para o elemento ou continue (s/n):");
 		int i = 0;
 		while (true) {
-			res += "\n****************\nA\n****************\n";
+			res = "\n****************\nA\n****************\n";
 			res += "[0] - VOLTAR/SAIR\n";
 			res += "[7] - H1\n";
 			res += "[8] - H2\n";
@@ -105,6 +112,10 @@ public class A extends Component{
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no A:");
 			if (i == 0){
 				return;
+			}
+			if (!numberAllowed("[" + i + "]")) {
+				Dialogue.print("Número inválido ou não permitido, digite novamente.");
+				continue;
 			}
 			id = Dialogue.printResponseString("Insira um ID para o elemento ou continue:");
 			classe = Dialogue.printResponseString("Insira uma CLASSE para o elemento ou continue:");
