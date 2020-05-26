@@ -14,7 +14,11 @@ import FactoryAndFlyheight.ComponentFactory;
 public class GeneralController {
 
 	private static void addGeneralElements(Component father, Component children){
-		father.add(children);
+		try {
+			father.add(children);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void getGeneralElements(Component father, ComponentEnum el, String id, String classe){

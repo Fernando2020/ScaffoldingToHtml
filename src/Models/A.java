@@ -59,10 +59,15 @@ public class A extends Component{
 	}
 	
 	@Override
-	public String getChildren(){
+	public String getChildren() {
 		String children = "";
-		for(int i=0; i<this.components.size(); i++){
-			children += components.get(i).getHTML();
+		try {
+			for (int i = 0; i < this.components.size(); i++) {
+				children += components.get(i).getHTML();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return children;
 	}

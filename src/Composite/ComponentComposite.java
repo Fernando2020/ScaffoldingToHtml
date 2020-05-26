@@ -11,28 +11,28 @@ package Composite;
  */
 public abstract class ComponentComposite extends ComponentBase {
 
-	public void add(Component comp) {
-		return;
+	public void add(Component comp) throws Exception {
+		throw new Exception("Este componente não implementa essa funcionalidade");
 	}
 
-	public void remove(Component comp) {
-		return;
+	public void remove(Component comp) throws Exception {
+		throw new Exception("Este componente não implementa essa funcionalidade");
 	}
 
-	public String getHTML() {
-		return "";
+	public String getHTML() throws Exception {
+		throw new Exception("Este componente não implementa essa funcionalidade");
 	}
 
 	public String indexing(String sentenca) {
 		return "\n" + sentenca + "\n";
 	}
 	
-	public String getChildren() {
-		return null;
+	public String getChildren() throws Exception {
+		throw new Exception("Este componente não implementa essa funcionalidade");
 	}
 	
-	public void getPermissionComponent(){
-		return;
+	public void getPermissionComponent() throws Exception{
+		throw new Exception("Este componente não implementa essa funcionalidade");
 	}
 	
 	public boolean numberAllowed(String number){

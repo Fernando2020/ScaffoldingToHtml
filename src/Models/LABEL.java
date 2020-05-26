@@ -5,24 +5,24 @@ import Composite.Component;
 import Controllers.GeneralController;
 import Views.Dialogue;
 
-public class LABEL extends Component{
-	
+public class LABEL extends Component {
+
 	private String permission;
 	private ArrayList<Component> components;
 	private String description;
 
-	public LABEL(){
+	public LABEL() {
 		this.permission = "[0];[1];[13];[17]";
 		this.components = new ArrayList<Component>();
 		this.description = "";
 		this.getPermissionComponent();
 	}
-	
+
 	@Override
 	public void add(Component comp) {
 		this.components.add(comp);
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -30,27 +30,32 @@ public class LABEL extends Component{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@Override
-	public String getChildren(){
+	public String getChildren() {
 		String children = "";
-		for(int i=0; i<this.components.size(); i++){
-			children += components.get(i).getHTML();
+		try {
+			for (int i = 0; i < this.components.size(); i++) {
+				children += components.get(i).getHTML();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return children;
 	}
-	
+
 	@Override
 	public String getHTML() {
 		String html = "<label";
-		html += !this.getId().equals("") ? " id='"+this.getId()+"'" : "";
-		html += !this.getClasse().equals("") ? " class='"+this.getClasse()+"'" : "";
+		html += !this.getId().equals("") ? " id='" + this.getId() + "'" : "";
+		html += !this.getClasse().equals("") ? " class='" + this.getClasse() + "'" : "";
 		html += ">";
-		
+
 		html += this.description + this.getChildren();
-	
+
 		html += "</label>";
-		
+
 		return indexing(html);
 	}
 
@@ -58,7 +63,7 @@ public class LABEL extends Component{
 	public boolean numberAllowed(String number) {
 		return this.permission.indexOf(number) > -1;
 	}
-	
+
 	@Override
 	public void getPermissionComponent() {
 		String res = "";
@@ -75,7 +80,7 @@ public class LABEL extends Component{
 
 			Dialogue.print(res);
 			i = Dialogue.printResponseInt("Digite o número para inserir um elemento no LABEL:");
-			if (i == 0){
+			if (i == 0) {
 				return;
 			}
 			if (!numberAllowed("[" + i + "]")) {
